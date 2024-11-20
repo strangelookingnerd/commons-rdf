@@ -17,41 +17,43 @@
  */
 package org.apache.commons.rdf.api;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.Objects;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DummyQuadTest {
+class DummyQuadTest {
     Quad quad = new DummyQuad();
 
     @Test
-    public void testEquals() throws Exception {
-        assertEquals(quad, new DummyQuad());
+    void testEquals() {
+        assertEquals(new DummyQuad(), quad);
     }
 
     @Test
-    public void testGetGraphName() throws Exception {
+    void testGetGraphName() {
         assertFalse(quad.getGraphName().isPresent());
     }
+
     @Test
-    public void testGetObject() throws Exception {
+    void testGetObject() {
         assertEquals(3, ((DummyIRI) quad.getObject()).i);
     }
+
     @Test
-    public void testGetPredicate() throws Exception {
+    void testGetPredicate() {
         assertEquals(2, ((DummyIRI) quad.getPredicate()).i);
     }
 
     @Test
-    public void testGetSubject() throws Exception {
+    void testGetSubject() {
         assertEquals(1, ((DummyIRI) quad.getSubject()).i);
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final int expected = Objects.hash(quad.getSubject(), quad.getPredicate(), quad.getObject(), quad.getGraphName());
         assertEquals(expected, quad.hashCode());
     }

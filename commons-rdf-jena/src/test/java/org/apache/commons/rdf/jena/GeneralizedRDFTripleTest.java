@@ -17,21 +17,21 @@
  */
 package org.apache.commons.rdf.jena;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.rdf.api.BlankNode;
 import org.apache.jena.graph.Node;
 import org.apache.jena.graph.NodeFactory;
 import org.apache.jena.graph.Triple;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GeneralizedRDFTripleTest {
+class GeneralizedRDFTripleTest {
 
     private final JenaRDF jena = new JenaRDF();
 
     @Test
-    public void testAsGeneralizedTriple() throws Exception {
+    void testAsGeneralizedTriple() {
         final Node s = NodeFactory.createLiteral("Hello");
         final Node p = NodeFactory.createBlankNode();
         final Node o = NodeFactory.createURI("http://example.com/ex");
@@ -43,7 +43,7 @@ public class GeneralizedRDFTripleTest {
     }
 
     @Test
-    public void testBnodeProperty() throws Exception {
+    void testBnodeProperty() {
         final BlankNode b1 = jena.createBlankNode("b1");
         final JenaIRI ex1 = jena.createIRI("http://example.com/ex1");
         final JenaIRI ex2 = jena.createIRI("http://example.com/ex2");
@@ -56,7 +56,7 @@ public class GeneralizedRDFTripleTest {
     }
 
     @Test
-    public void testLiteralPredicate() throws Exception {
+    void testLiteralPredicate() {
         final JenaIRI ex1 = jena.createIRI("http://example.com/ex1");
         final JenaIRI ex2 = jena.createIRI("http://example.com/ex2");
         final JenaLiteral lit = jena.createLiteral("Hello");
@@ -69,7 +69,7 @@ public class GeneralizedRDFTripleTest {
     }
 
     @Test
-    public void testLiteralSubject() throws Exception {
+    void testLiteralSubject() {
         final JenaIRI ex1 = jena.createIRI("http://example.com/ex1");
         final JenaIRI ex2 = jena.createIRI("http://example.com/ex2");
         final JenaLiteral lit = jena.createLiteral("Hello");

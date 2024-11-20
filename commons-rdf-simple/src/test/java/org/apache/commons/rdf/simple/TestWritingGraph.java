@@ -17,7 +17,7 @@
  */
 package org.apache.commons.rdf.simple;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -31,9 +31,9 @@ import org.apache.commons.rdf.api.Graph;
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.api.RDF;
 import org.apache.commons.rdf.api.Triple;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test writing graph
@@ -55,8 +55,8 @@ public class TestWritingGraph {
 
     private static RDF factory;
 
-    @BeforeClass
-    public static void createGraph() throws Exception {
+    @BeforeAll
+    static void createGraph() {
         factory = new SimpleRDF();
         graph = factory.createGraph();
         final IRI subject = factory.createIRI("subj");
@@ -79,8 +79,8 @@ public class TestWritingGraph {
         }
     }
 
-    @AfterClass
-    public static void tearDownClass() throws Exception {
+    @AfterAll
+    static void tearDownClass() {
         graph.clear();
         graph = null;
     }
@@ -91,21 +91,21 @@ public class TestWritingGraph {
     }
 
     @Test
-    public void testCountQuery() {
+    void testCountQuery() {
         final IRI subject = factory.createIRI("subj");
         final IRI predicate = factory.createIRI("pred");
         final long count = graph.stream(subject, predicate, null).unordered().parallel().count();
         // System.out.println("Counted - " + count);
-        assertEquals(count, TRIPLES);
+        assertEquals(TRIPLES, count);
     }
 
     @Test
-    public void testCreateGraphTiming() throws Exception {
+    void testCreateGraphTiming() {
         createGraph();
     }
 
     @Test
-    public void testWriteGraphFromStream() throws Exception {
+    void testWriteGraphFromStream() throws Exception {
         final Path graphFile = Files.createTempFile("graph", ".nt");
         if (KEEP_FILES) {
             System.out.println("From stream: " + graphFile);
@@ -118,7 +118,7 @@ public class TestWritingGraph {
     }
 
     @Test
-    public void testWriteGraphFromStreamFiltered() throws Exception {
+    void testWriteGraphFromStreamFiltered() throws Exception {
         final Path graphFile = Files.createTempFile("graph", ".nt");
         if (KEEP_FILES) {
             System.out.println("Filtered stream: " + graphFile);
@@ -134,7 +134,7 @@ public class TestWritingGraph {
     }
 
     @Test
-    public void testWriteGraphFromStreamFilteredNoMatches() throws Exception {
+    void testWriteGraphFromStreamFilteredNoMatches() throws Exception {
         final Path graphFile = Files.createTempFile("graph-empty-", ".nt");
         if (KEEP_FILES) {
             System.out.println("Filtered stream: " + graphFile);

@@ -17,38 +17,38 @@
  */
 package org.apache.commons.rdf.api;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DefaultDatasetTest {
+class DefaultDatasetTest {
 
     DummyDataset dataset = new DummyDataset();
 
     @Test
-    public void testClose() throws Exception {
+    void testClose() throws Exception {
         dataset.close(); // no-op
     }
 
     @Test
-    public void testDefaultFilteredIterate() throws Exception {
+    void testDefaultFilteredIterate() {
         assertFalse(dataset.streamCalled);
         assertFalse(dataset.filteredStreamCalled);
         for (final Quad t : dataset.iterate(null, null, new DummyIRI(2), null)) {
-            assertEquals(t, new DummyQuad());
+            assertEquals(new DummyQuad(), t);
         }
         assertTrue(dataset.filteredStreamCalled);
         assertFalse(dataset.streamCalled);
     }
 
     @Test
-    public void testDefaultIterate() throws Exception {
+    void testDefaultIterate() {
         assertFalse(dataset.streamCalled);
         assertFalse(dataset.filteredStreamCalled);
         for (final Quad t : dataset.iterate()) {
-            assertEquals(t, new DummyQuad());
+            assertEquals(new DummyQuad(), t);
         }
         assertTrue(dataset.streamCalled);
         assertFalse(dataset.filteredStreamCalled);

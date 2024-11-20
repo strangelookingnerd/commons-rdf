@@ -17,64 +17,67 @@
  */
 package org.apache.commons.rdf.api;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DummyGraphTest {
+class DummyGraphTest {
     Graph graph = new DummyGraph();
 
-    @Test(expected = IllegalStateException.class)
-    public void clearNotSupported() throws Exception {
-        graph.clear();
-    }
-
-    @Test(expected = IllegalStateException.class)
-    public void remove() throws Exception {
-        graph.remove(new DummyTriple());
+    @Test
+    void clearNotSupported() {
+        assertThrows(IllegalStateException.class, () ->
+            graph.clear());
     }
 
     @Test
-    public void testAdd() throws Exception {
+    void remove() {
+        assertThrows(IllegalStateException.class, () ->
+            graph.remove(new DummyTriple()));
+    }
+
+    @Test
+    void testAdd() {
         graph.add(new DummyTriple());
     }
 
     @Test
-    public void testAddSPO() throws Exception {
+    void testAddSPO() {
         graph.add(new DummyIRI(1), new DummyIRI(2), new DummyIRI(3));
     }
 
     @Test
-    public void testContains() throws Exception {
+    void testContains() {
         assertTrue(graph.contains(new DummyTriple()));
     }
 
     @Test
-    public void testContainsSPO() throws Exception {
+    void testContainsSPO() {
         assertTrue(graph.contains(null, null, null));
         assertTrue(graph.contains(new DummyIRI(1), new DummyIRI(2), new DummyIRI(3)));
         assertFalse(graph.contains(new DummyIRI(0), new DummyIRI(0), new DummyIRI(0)));
     }
 
     @Test
-    public void testRemoveSPO() throws Exception {
+    void testRemoveSPO() {
         graph.remove(new DummyIRI(0), new DummyIRI(0), new DummyIRI(0));
     }
 
     @Test
-    public void testSize() throws Exception {
+    void testSize() {
         assertEquals(1, graph.size());
     }
 
     @Test
-    public void testStream() throws Exception {
+    void testStream() {
         assertEquals(new DummyTriple(), graph.stream().findAny().get());
     }
 
     @Test
-    public void testStreamFiltered() throws Exception {
+    void testStreamFiltered() {
         assertEquals(new DummyTriple(), graph.stream(null, null, null).findAny().get());
         assertEquals(new DummyTriple(),
                 graph.stream(new DummyIRI(1), new DummyIRI(2), new DummyIRI(3)).findAny().get());

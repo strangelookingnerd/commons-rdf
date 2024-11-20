@@ -17,7 +17,6 @@
  */
 package org.apache.commons.rdf.simple;
 
-import java.io.IOException;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -26,7 +25,6 @@ import org.apache.commons.rdf.api.Quad;
 import org.apache.commons.rdf.api.RDF;
 import org.apache.commons.rdf.experimental.RDFParser;
 import org.apache.commons.rdf.simple.experimental.AbstractRDFParser;
-import org.apache.commons.rdf.simple.experimental.RDFParseException;
 
 /**
  * For test purposes - a {@link RDFParser} that inserts information about what
@@ -48,7 +46,7 @@ import org.apache.commons.rdf.simple.experimental.RDFParseException;
 public class DummyRDFParserBuilder extends AbstractRDFParser<DummyRDFParserBuilder> {
 
     @Override
-    protected void parseSynchronusly() throws IOException, IllegalStateException, RDFParseException {
+    protected void parseSynchronusly() throws IllegalStateException {
         // From parseSynchronusly both of these are always present
         final RDF factory = getRdfTermFactory().get();
         final Consumer<Quad> t = getTarget();

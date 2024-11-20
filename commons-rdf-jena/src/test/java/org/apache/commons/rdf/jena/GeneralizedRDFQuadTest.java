@@ -17,23 +17,23 @@
  */
 package org.apache.commons.rdf.jena;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.rdf.api.BlankNode;
 import org.apache.commons.rdf.api.RDFTerm;
 import org.apache.jena.graph.Node;
 import org.apache.jena.graph.NodeFactory;
 import org.apache.jena.sparql.core.Quad;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GeneralizedRDFQuadTest {
+class GeneralizedRDFQuadTest {
 
     private final JenaRDF jena = new JenaRDF();
 
     @Test
-    public void testAsGeneralizedQuad() throws Exception {
+    void testAsGeneralizedQuad() {
         final Node s = NodeFactory.createLiteral("Hello");
         final Node p = NodeFactory.createBlankNode();
         final Node o = NodeFactory.createURI("http://example.com/ex");
@@ -47,7 +47,7 @@ public class GeneralizedRDFQuadTest {
     }
 
     @Test
-    public void testBnodeProperty() throws Exception {
+    void testBnodeProperty() {
         final BlankNode b1 = jena.createBlankNode("b1");
         final JenaIRI ex1 = jena.createIRI("http://example.com/ex1");
         final JenaIRI ex2 = jena.createIRI("http://example.com/ex2");
@@ -62,7 +62,7 @@ public class GeneralizedRDFQuadTest {
     }
 
     @Test
-    public void testLiteralGraph() throws Exception {
+    void testLiteralGraph() {
         final JenaIRI ex1 = jena.createIRI("http://example.com/ex1");
         final JenaIRI ex2 = jena.createIRI("http://example.com/ex2");
         final JenaIRI ex3 = jena.createIRI("http://example.com/ex3");
@@ -77,7 +77,7 @@ public class GeneralizedRDFQuadTest {
     }
 
     @Test
-    public void testLiteralPredicate() throws Exception {
+    void testLiteralPredicate() {
         final JenaIRI ex1 = jena.createIRI("http://example.com/ex1");
         final JenaIRI ex2 = jena.createIRI("http://example.com/ex2");
         final JenaIRI ex3 = jena.createIRI("http://example.com/ex3");
@@ -92,7 +92,7 @@ public class GeneralizedRDFQuadTest {
     }
 
     @Test
-    public void testLiteralSubject() throws Exception {
+    void testLiteralSubject() {
         final JenaIRI ex1 = jena.createIRI("http://example.com/ex1");
         final JenaIRI ex2 = jena.createIRI("http://example.com/ex2");
         final JenaIRI ex3 = jena.createIRI("http://example.com/ex3");
@@ -107,7 +107,7 @@ public class GeneralizedRDFQuadTest {
     }
 
     @Test
-    public void testLiteralSubjectDefaultGraphGen() throws Exception {
+    void testLiteralSubjectDefaultGraphGen() {
         final JenaIRI ex1 = jena.createIRI("http://example.com/ex1");
         final JenaIRI ex2 = jena.createIRI("http://example.com/ex2");
         // No need to cast to JenaIRI

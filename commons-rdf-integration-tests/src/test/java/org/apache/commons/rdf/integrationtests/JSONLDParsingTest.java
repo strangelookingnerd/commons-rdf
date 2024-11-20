@@ -17,7 +17,7 @@
  */
 package org.apache.commons.rdf.integrationtests;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -37,8 +37,8 @@ import org.apache.jena.riot.RDFDataMgr;
 import org.eclipse.rdf4j.model.Model;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.Rio;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.github.jsonldjava.core.JsonLdOptions;
 import com.github.jsonldjava.core.JsonLdProcessor;
@@ -66,7 +66,7 @@ import com.github.jsonldjava.utils.JsonUtils;
  * (however it does not check that it is compatible with Jena and
  * RDF4J's external fetching of RDF documents).
  */
-public class JSONLDParsingTest {
+class JSONLDParsingTest {
 
     static RDF rdf = new SimpleRDF();
     static IRI alice = rdf.createIRI("http://example.com/Alice");
@@ -86,8 +86,8 @@ public class JSONLDParsingTest {
     /**
      * Pre-test that src/test/resources files are on the classpath
      */
-    @Before
-    public void checkTestResources() throws Exception {
+    @BeforeEach
+    void checkTestResources() throws Exception {
         aliceCached.openStream().close();
         aliceEmbedded.openStream().close();
         // Used by JSONLD-Java to avoid external dependencies. See
@@ -125,38 +125,38 @@ public class JSONLDParsingTest {
     }
 
     @Test
-    public void testJenaParseCached() throws Exception {
+    void testJenaParseCached() throws Exception {
         // Check if HTTPClient cache is used from
         // jarcache.json
         jenaParse(aliceCached);
     }
 
     @Test
-    public void testJenaParseEmbedded() throws Exception {
+    void testJenaParseEmbedded() throws Exception {
         jenaParse(aliceEmbedded);
     }
 
     @Test
-    public void testJsonldParseCached() throws Exception {
+    void testJsonldParseCached() throws Exception {
         // Check if HTTPClient cache is used from
         // jarcache.json
         jsonldParse(aliceCached);
     }
 
     @Test
-    public void testJsonldParseEmbedded() throws Exception {
+    void testJsonldParseEmbedded() throws Exception {
         jsonldParse(aliceEmbedded);
     }
 
     @Test
-    public void testRdf4jParseCached() throws Exception {
+    void testRdf4jParseCached() throws Exception {
         // Check if HTTPClient cache is used from
         // jarcache.json
         rdf4jParse(aliceCached);
     }
 
     @Test
-    public void testRdf4jParseEmbedded() throws Exception {
+    void testRdf4jParseEmbedded() throws Exception {
         rdf4jParse(aliceEmbedded);
     }
 }

@@ -17,16 +17,16 @@
  */
 package org.apache.commons.rdf.simple;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for the {@link org.apache.commons.rdf.simple.Types} enumeration.
  */
-public class TypesTest {
+class TypesTest {
 
     /**
      * Test method for
@@ -34,7 +34,7 @@ public class TypesTest {
      * .
      */
     @Test
-    public final void testGet() {
+    final void testGet() {
         assertTrue(Types.get(new IRIImpl("http://www.w3.org/2001/XMLSchema#boolean")).isPresent());
         assertEquals("http://www.w3.org/2001/XMLSchema#boolean",
                 Types.get(new IRIImpl("http://www.w3.org/2001/XMLSchema#boolean")).get().getIRIString());
@@ -46,7 +46,7 @@ public class TypesTest {
      * {@link org.apache.commons.rdf.simple.Types#getIRIString()} .
      */
     @Test
-    public final void testGetIRIString() {
+    final void testGetIRIString() {
         assertEquals("http://www.w3.org/1999/02/22-rdf-syntax-ns#langString", Types.RDF_LANGSTRING.getIRIString());
     }
 
@@ -55,7 +55,7 @@ public class TypesTest {
      * {@link org.apache.commons.rdf.simple.Types#ntriplesString()}.
      */
     @Test
-    public final void testNtriplesString() {
+    final void testNtriplesString() {
         assertEquals("<http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>", Types.RDF_LANGSTRING.ntriplesString());
     }
 

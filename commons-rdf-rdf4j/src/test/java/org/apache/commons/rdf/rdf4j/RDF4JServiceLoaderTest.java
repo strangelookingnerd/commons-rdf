@@ -18,17 +18,17 @@
 
 package org.apache.commons.rdf.rdf4j;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ServiceLoader;
 
 import org.apache.commons.rdf.api.RDF;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class RDF4JServiceLoaderTest {
+class RDF4JServiceLoaderTest {
 
     @Test
-    public void testServiceLoaderLookup() {
+    void testServiceLoaderLookup() {
         final ServiceLoader<RDF> loader = ServiceLoader.load(RDF.class);
         for (final RDF impl : loader) {
             if (impl instanceof RDF4J) {

@@ -17,35 +17,37 @@
  */
 package org.apache.commons.rdf.api;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Objects;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DummyTripleTest {
+class DummyTripleTest {
     Triple triple = new DummyTriple();
 
     @Test
-    public void testEquals() throws Exception {
-        assertEquals(triple, new DummyTriple());
+    void testEquals() {
+        assertEquals(new DummyTriple(), triple);
     }
+
     @Test
-    public void testGetObject() throws Exception {
+    void testGetObject() {
         assertEquals(3, ((DummyIRI) triple.getObject()).i);
     }
+
     @Test
-    public void testGetPredicate() throws Exception {
+    void testGetPredicate() {
         assertEquals(2, ((DummyIRI) triple.getPredicate()).i);
     }
 
     @Test
-    public void testGetSubject() throws Exception {
+    void testGetSubject() {
         assertEquals(1, ((DummyIRI) triple.getSubject()).i);
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final int expected = Objects.hash(triple.getSubject(), triple.getPredicate(), triple.getObject());
         assertEquals(expected, triple.hashCode());
     }

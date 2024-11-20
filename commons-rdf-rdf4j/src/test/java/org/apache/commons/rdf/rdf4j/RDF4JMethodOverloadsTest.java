@@ -17,7 +17,8 @@
  */
 package org.apache.commons.rdf.rdf4j;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 import org.eclipse.rdf4j.model.BNode;
 import org.eclipse.rdf4j.model.IRI;
@@ -26,12 +27,12 @@ import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.model.ValueFactory;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class RDF4JMethodOverloadsTest {
+class RDF4JMethodOverloadsTest {
 
     @Test
-    public void testAsRDFTermOverloads() {
+    void testAsRDFTermOverloads() {
         final RDF4J rdf4J = new RDF4J();
 
         final ValueFactory valueFactory = SimpleValueFactory.getInstance();

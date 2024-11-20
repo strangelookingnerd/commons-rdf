@@ -17,21 +17,21 @@
  */
 package org.apache.commons.rdf.api;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.Objects;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DefaultQuadTest {
+class DefaultQuadTest {
     @Test
-    public void testAsQuad() throws Exception {
+    void testAsQuad() {
         final Quad q = new DummyQuad();
         final Triple t = q.asTriple();
         assertEquals(t, t);
         assertNotEquals(t,  q);
-        assertEquals(t, new DummyTriple());
+        assertEquals(new DummyTriple(), t);
         assertEquals(t, new DummyQuad().asTriple());
 
         // FIXME: This would not catch if asTriple() accidentally mixed up s/p/o

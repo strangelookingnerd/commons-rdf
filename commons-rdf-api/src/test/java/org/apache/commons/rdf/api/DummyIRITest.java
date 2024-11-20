@@ -17,41 +17,41 @@
  */
 package org.apache.commons.rdf.api;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DummyIRITest {
+class DummyIRITest {
     DummyIRI iri = new DummyIRI(1337);
 
     @Test
-    public void testEquals() throws Exception {
-        assertEquals(iri, new DummyIRI(1337));
+    void testEquals() {
+        assertEquals(new DummyIRI(1337), iri);
     }
 
     @Test
-    public void testGetIRIString() throws Exception {
+    void testGetIRIString() {
         assertEquals("http://example.com/1337", iri.getIRIString());
     }
 
     @Test
-    public void testHashCode() throws Exception {
+    void testHashCode() {
         assertEquals("http://example.com/1337".hashCode(), iri.hashCode());
     }
 
     @Test
-    public void testI() throws Exception {
+    void testI() {
         assertEquals(1337, iri.i);
     }
 
     @Test
-    public void testNotEquals() throws Exception {
-        assertNotEquals(iri, new DummyIRI(1));
+    void testNotEquals() {
+        assertNotEquals(new DummyIRI(1), iri);
     }
 
     @Test
-    public void testNtriplesString() throws Exception {
+    void testNtriplesString() {
         assertEquals("<http://example.com/1337>", iri.ntriplesString());
     }
 }

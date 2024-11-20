@@ -17,27 +17,27 @@
  */
 package org.apache.commons.rdf.api;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DefaultGraphTest {
+class DefaultGraphTest {
 
     DummyGraph graph = new DummyGraph();
 
     @Test
-    public void testClose() throws Exception {
+    void testClose() throws Exception {
         graph.close(); // no-op
     }
 
     @Test
-    public void testDefaultFilteredIterate() throws Exception {
+    void testDefaultFilteredIterate() {
         assertFalse(graph.streamCalled);
         assertFalse(graph.filteredStreamCalled);
         for (final Triple t : graph.iterate(null, new DummyIRI(2), null)) {
-            assertEquals(t, new DummyTriple());
+            assertEquals(new DummyTriple(), t);
         }
         assertTrue(graph.filteredStreamCalled);
         assertFalse(graph.streamCalled);
@@ -45,7 +45,7 @@ public class DefaultGraphTest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void testDefaultGetTriples() throws Exception {
+    void testDefaultGetTriples() {
         assertFalse(graph.streamCalled);
         assertFalse(graph.filteredStreamCalled);
         assertEquals(1L, graph.getTriples().count());
@@ -55,7 +55,7 @@ public class DefaultGraphTest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void testDefaultGetTriplesFiltered() throws Exception {
+    void testDefaultGetTriplesFiltered() {
         assertFalse(graph.streamCalled);
         assertFalse(graph.filteredStreamCalled);
         assertEquals(1L, graph.getTriples(null,null,null).count());
@@ -66,11 +66,11 @@ public class DefaultGraphTest {
     }
 
     @Test
-    public void testDefaultIterate() throws Exception {
+    void testDefaultIterate() {
         assertFalse(graph.streamCalled);
         assertFalse(graph.filteredStreamCalled);
         for (final Triple t : graph.iterate()) {
-            assertEquals(t, new DummyTriple());
+            assertEquals(new DummyTriple(), t);
         }
         assertTrue(graph.streamCalled);
         assertFalse(graph.filteredStreamCalled);

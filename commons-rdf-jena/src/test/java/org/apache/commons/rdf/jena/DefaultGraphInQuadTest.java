@@ -17,22 +17,22 @@
  */
 package org.apache.commons.rdf.jena;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.simple.SimpleRDF;
 import org.apache.jena.graph.Node;
 import org.apache.jena.graph.NodeFactory;
 import org.apache.jena.sparql.core.Quad;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * COMMONSRDF-55: Handling of
  * Jena's default graph IRI urn:x-arq:DefaultGraph
  */
-public class DefaultGraphInQuadTest {
+class DefaultGraphInQuadTest {
 
     JenaRDF rdf = new JenaRDF();
     SimpleRDF simpleRDF = new SimpleRDF();
@@ -40,7 +40,7 @@ public class DefaultGraphInQuadTest {
     Node exampleJena = NodeFactory.createURI("http://example.com/");
 
     @Test
-    public void testCreateFromDefaultGraphIRI() throws Exception {
+    void testCreateFromDefaultGraphIRI() {
         final JenaIRI defaultGraph = (JenaIRI) rdf.asRDFTerm(Quad.defaultGraphIRI);
         final JenaQuad q = rdf.createQuad(defaultGraph, example, example, example);
         // NOTE: JenaRDF specially recognize this JenaIRI constant,
@@ -53,7 +53,7 @@ public class DefaultGraphInQuadTest {
     }
 
     @Test
-    public void testCreateFromDefaultGraphNodeGeneratedIRINode() throws Exception {
+    void testCreateFromDefaultGraphNodeGeneratedIRINode() {
         // What if <urn:x-arq:DefaultGraphNode> appear as an IRI instance?
         final IRI foreignDefaultGraph = rdf.createIRI(Quad.defaultGraphNodeGenerated.getURI());
         final JenaQuad q = rdf.createQuad(foreignDefaultGraph, example, example, example);
@@ -66,7 +66,7 @@ public class DefaultGraphInQuadTest {
     }
 
     @Test
-    public void testCreateFromDefaultGraphNodeGeneratedIRIString() throws Exception {
+    void testCreateFromDefaultGraphNodeGeneratedIRIString() {
         // What if <urn:x-arq:DefaultGraphNode> appear in a non-Jena IRI?
         final IRI foreignDefaultGraph = simpleRDF.createIRI(Quad.defaultGraphNodeGenerated.getURI());
         final JenaQuad q = rdf.createQuad(foreignDefaultGraph, example, example, example);
@@ -79,7 +79,7 @@ public class DefaultGraphInQuadTest {
     }
 
     @Test
-    public void testCreateFromForeignDefaultGraph() throws Exception {
+    void testCreateFromForeignDefaultGraph() {
         // What if <urn:x-arq:DefaultGraph> appear in a non-Jena IRI?
         final IRI foreignDefaultGraph = simpleRDF.createIRI(Quad.defaultGraphIRI.getURI());
         final JenaQuad q = rdf.createQuad(foreignDefaultGraph, example, example, example);
@@ -94,7 +94,7 @@ public class DefaultGraphInQuadTest {
     }
 
     @Test
-    public void testCreateFromNull() throws Exception {
+    void testCreateFromNull() {
         final JenaQuad q = rdf.createQuad(null, example, example, example);
         assertFalse(q.getGraphName().isPresent());
         assertTrue(q.asJenaQuad().isDefaultGraph());
@@ -102,7 +102,7 @@ public class DefaultGraphInQuadTest {
     }
 
     @Test
-    public void testDefaultGraphIRI() throws Exception {
+    void testDefaultGraphIRI() {
         final Quad jenaQuad = Quad.create(Quad.defaultGraphIRI, exampleJena, exampleJena, exampleJena);
         final JenaQuad q = rdf.asQuad(jenaQuad);
         assertFalse(q.getGraphName().isPresent());
@@ -110,7 +110,7 @@ public class DefaultGraphInQuadTest {
     }
 
     @Test
-    public void testDefaultGraphNodeGenerated() throws Exception {
+    void testDefaultGraphNodeGenerated() {
         // <urn:x-arq:DefaultGraphNode> might appear in parser output
         final Quad jenaQuad = Quad.create(Quad.defaultGraphNodeGenerated, exampleJena, exampleJena, exampleJena);
         final JenaQuad q = rdf.asQuad(jenaQuad);
@@ -121,7 +121,7 @@ public class DefaultGraphInQuadTest {
     }
 
     @Test
-    public void testUnionGraph() throws Exception {
+    void testUnionGraph() {
         // unionGraph shouldn't really appear as a quad except
         // in a pattern
         final Quad jenaQuad = Quad.create(Quad.unionGraph, exampleJena, exampleJena, exampleJena);

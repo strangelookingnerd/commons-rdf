@@ -17,18 +17,19 @@
  */
 package org.apache.commons.rdf.api;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test RDF implementation (and thus its RDFTerm implementations)
@@ -59,27 +60,28 @@ public abstract class AbstractRDFTest {
      */
     protected abstract RDF createFactory();
 
-    @Before
+    @BeforeEach
     public void setUp() {
         factory = createFactory();
     }
 
     @Test
-    public void testCreateBlankNode() throws Exception {
+    public void testCreateBlankNode() {
         final BlankNode bnode = factory.createBlankNode();
 
         final BlankNode bnode2 = factory.createBlankNode();
-        assertNotEquals("Second blank node has not got a unique internal identifier", bnode.uniqueReference(),
-                bnode2.uniqueReference());
+        assertNotEquals(bnode.uniqueReference(),
+                bnode2.uniqueReference(),
+                "Second blank node has not got a unique internal identifier");
     }
 
     @Test
-    public void testCreateBlankNodeIdentifier() throws Exception {
+    public void testCreateBlankNodeIdentifier() {
         factory.createBlankNode("example1");
     }
 
     @Test
-    public void testCreateBlankNodeIdentifierEmpty() throws Exception {
+    public void testCreateBlankNodeIdentifierEmpty() {
         try {
             factory.createBlankNode("");
         } catch (final IllegalArgumentException e) {
@@ -88,7 +90,7 @@ public abstract class AbstractRDFTest {
     }
 
     @Test
-    public void testCreateBlankNodeIdentifierTwice() throws Exception {
+    public void testCreateBlankNodeIdentifierTwice() {
         BlankNode bnode1, bnode2, bnode3;
         bnode1 = factory.createBlankNode("example1");
         bnode2 = factory.createBlankNode("example1");
@@ -103,7 +105,7 @@ public abstract class AbstractRDFTest {
     }
 
     @Test
-    public void testCreateBlankNodeIdentifierTwiceDifferentFactories() throws Exception {
+    public void testCreateBlankNodeIdentifierTwiceDifferentFactories() {
         BlankNode bnode1, differentFactory;
         bnode1 = factory.createBlankNode();
         // it MUST differ from a second factory
@@ -128,17 +130,17 @@ public abstract class AbstractRDFTest {
     public void testCreateGraph() throws Exception {
         try (final Graph graph = factory.createGraph(); final Graph graph2 = factory.createGraph()) {
 
-            assertEquals("Graph was not empty", 0, graph.size());
+            assertEquals(0, graph.size(), "Graph was not empty");
             graph.add(factory.createBlankNode(), factory.createIRI("http://example.com/"), factory.createBlankNode());
 
             assertNotSame(graph, graph2);
-            assertEquals("Graph was empty after adding", 1, graph.size());
-            assertEquals("New graph was not empty", 0, graph2.size());
+            assertEquals(1, graph.size(), "Graph was empty after adding");
+            assertEquals(0, graph2.size(), "New graph was not empty");
         }
     }
 
     @Test
-    public void testCreateIRI() throws Exception {
+    public void testCreateIRI() {
         final IRI example = factory.createIRI("http://example.com/");
 
         assertEquals("http://example.com/", example.getIRIString());
@@ -164,7 +166,7 @@ public abstract class AbstractRDFTest {
     }
 
     @Test
-    public void testCreateLiteral() throws Exception {
+    public void testCreateLiteral() {
         final Literal example = factory.createLiteral("Example");
         assertEquals("Example", example.getLexicalForm());
         assertFalse(example.getLanguageTag().isPresent());
@@ -174,7 +176,7 @@ public abstract class AbstractRDFTest {
     }
 
     @Test
-    public void testCreateLiteralDateTime() throws Exception {
+    public void testCreateLiteralDateTime() {
         final Literal dateTime = factory.createLiteral("2014-12-27T00:50:00T-0600",
                 factory.createIRI("http://www.w3.org/2001/XMLSchema#dateTime"));
         assertEquals("2014-12-27T00:50:00T-0600", dateTime.getLexicalForm());
@@ -185,7 +187,7 @@ public abstract class AbstractRDFTest {
     }
 
     @Test
-    public void testCreateLiteralLang() throws Exception {
+    public void testCreateLiteralLang() {
         final Literal example = factory.createLiteral("Example", "en");
 
         assertEquals("Example", example.getLexicalForm());
@@ -195,7 +197,7 @@ public abstract class AbstractRDFTest {
     }
 
     @Test
-    public void testCreateLiteralLangCaseInsensitive() throws Exception {
+    public void testCreateLiteralLangCaseInsensitive() {
         /*
          * COMMONSRDF-51: Literal langtag may not be in lowercase, but must be
          * COMPARED (aka .equals and .hashCode()) in lowercase as the language
@@ -239,7 +241,7 @@ public abstract class AbstractRDFTest {
     }
 
     @Test
-    public void testCreateLiteralLangCaseInsensitiveInTurkish() throws Exception {
+    public void testCreateLiteralLangCaseInsensitiveInTurkish() {
         // COMMONSRDF-51: Special test for Turkish issue where
         // "i".toLowerCase() != "i"
         // See also:
@@ -256,7 +258,7 @@ public abstract class AbstractRDFTest {
             // If the below assertion fails, then the Turkish
             // locale no longer have this peculiarity that
             // we want to test.
-            Assume.assumeFalse("FI".toLowerCase().equals("fi"));
+            assumeFalse("FI".toLowerCase().equals("fi"));
 
             final Literal mixed = factory.createLiteral("moi", "fI");
             final Literal lower = factory.createLiteral("moi", "fi");
@@ -330,7 +332,7 @@ public abstract class AbstractRDFTest {
     }
 
     @Test
-    public void testCreateLiteralLangISO693_3() throws Exception {
+    public void testCreateLiteralLangISO693_3() {
         // see https://issues.apache.org/jira/browse/JENA-827
         final Literal vls = factory.createLiteral("Herbert Van de Sompel", "vls"); // JENA-827
 
@@ -340,7 +342,7 @@ public abstract class AbstractRDFTest {
     }
 
     @Test
-    public void testCreateLiteralString() throws Exception {
+    public void testCreateLiteralString() {
         final Literal example = factory.createLiteral("Example",
                 factory.createIRI("http://www.w3.org/2001/XMLSchema#string"));
         assertEquals("Example", example.getLexicalForm());
@@ -393,47 +395,51 @@ public abstract class AbstractRDFTest {
     }
 
     @Test
-    public void testHashCodeBlankNode() throws Exception {
+    public void testHashCodeBlankNode() {
         final BlankNode bnode1 = factory.createBlankNode();
         assertEquals(bnode1.uniqueReference().hashCode(), bnode1.hashCode());
     }
 
     @Test
-    public void testHashCodeIRI() throws Exception {
+    public void testHashCodeIRI() {
         final IRI iri = factory.createIRI("http://example.com/");
         assertEquals(iri.getIRIString().hashCode(), iri.hashCode());
     }
 
     @Test
-    public void testHashCodeLiteral() throws Exception {
+    public void testHashCodeLiteral() {
         final Literal literal = factory.createLiteral("Hello");
         assertEquals(Objects.hash(literal.getLexicalForm(), literal.getDatatype(), literal.getLanguageTag()),
                 literal.hashCode());
     }
 
     @Test
-    public void testHashCodeTriple() throws Exception {
+    public void testHashCodeTriple() {
         final IRI iri = factory.createIRI("http://example.com/");
         final Triple triple = factory.createTriple(iri, iri, iri);
         assertEquals(Objects.hash(iri, iri, iri), triple.hashCode());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testInvalidIRI() throws Exception {
-        factory.createIRI("<no_brackets>");
+    @Test
+    public void testInvalidIRI() {
+        assertThrows(IllegalArgumentException.class, () ->
+            factory.createIRI("<no_brackets>"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testInvalidLiteralLang() throws Exception {
-        factory.createLiteral("Example", "with space");
+    @Test
+    public void testInvalidLiteralLang() {
+        assertThrows(IllegalArgumentException.class, () ->
+            factory.createLiteral("Example", "with space"));
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void testInvalidTriplePredicate() {
-        final BlankNode subject = factory.createBlankNode("b1");
-        final BlankNode predicate = factory.createBlankNode("b2");
-        final BlankNode object = factory.createBlankNode("b3");
-        factory.createTriple(subject, (IRI) predicate, object);
+        assertThrows(Exception.class, () -> {
+            final BlankNode subject = factory.createBlankNode("b1");
+            final BlankNode predicate = factory.createBlankNode("b2");
+            final BlankNode object = factory.createBlankNode("b3");
+            factory.createTriple(subject, (IRI) predicate, object);
+        });
     }
 
     @Test

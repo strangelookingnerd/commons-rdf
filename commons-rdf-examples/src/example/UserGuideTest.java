@@ -37,20 +37,20 @@ import org.apache.commons.rdf.api.Triple;
 import org.apache.commons.rdf.api.TripleLike;
 import org.apache.commons.rdf.simple.SimpleRDF;
 import org.apache.commons.rdf.simple.Types;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class UserGuideTest {
 
     private RDF factory;
 
-    @Before
-    public void factory() {
+    @BeforeAll
+    static void factory() {
         factory = new SimpleRDF();
     }
 
     @Test
-    public void testCreating() throws Exception {
+    void testCreating() throws Exception {
         BlankNode aliceBlankNode = factory.createBlankNode();
         IRI nameIri = factory.createIRI("http://example.com/name");
         Literal aliceLiteral = factory.createLiteral("Alice");
@@ -63,7 +63,7 @@ public class UserGuideTest {
     }
 
     @Test
-    public void testNtriples() throws Exception {
+    void testNtriples() throws Exception {
         IRI iri = factory.createIRI("http://example.com/alice");
         System.out.println(iri.getIRIString());
 
@@ -79,7 +79,7 @@ public class UserGuideTest {
     }
 
     @Test
-    public void testBlanknode() throws Exception {
+    void testBlanknode() throws Exception {
         BlankNode bnode = factory.createBlankNode();
         System.out.println(bnode.equals(bnode));
         System.out.println(bnode.equals(factory.createBlankNode()));
@@ -95,7 +95,7 @@ public class UserGuideTest {
     }
 
     @Test
-    public void testLiteral() throws Exception {
+    void testLiteral() throws Exception {
         Literal literal = factory.createLiteral("Hello world!");
         System.out.println(literal.ntriplesString());
 
@@ -128,7 +128,7 @@ public class UserGuideTest {
     }
 
     @Test
-    public void testTriple() throws Exception {
+    void testTriple() throws Exception {
         BlankNodeOrIRI subject = factory.createBlankNode();
         IRI predicate = factory.createIRI("http://example.com/says");
         RDFTerm object = factory.createLiteral("Hello");
@@ -157,7 +157,7 @@ public class UserGuideTest {
     }
 
     @Test
-    public void testQuad() throws Exception {
+    void testQuad() throws Exception {
         BlankNodeOrIRI graph = factory.createIRI("http://example.com/graph");
         BlankNodeOrIRI subject = factory.createBlankNode();
         IRI predicate = factory.createIRI("http://example.com/says");
@@ -197,7 +197,7 @@ public class UserGuideTest {
     }
 
     @Test
-    public void testGraph() throws Exception {
+    void testGraph() throws Exception {
         IRI nameIri = factory.createIRI("http://example.com/name");
         BlankNode aliceBlankNode = factory.createBlankNode();
         Literal aliceLiteral = factory.createLiteral("Alice");
@@ -246,12 +246,12 @@ public class UserGuideTest {
 
     }
 
-    public static String tripleAsString(Triple t) {
+    static String tripleAsString(Triple t) {
         return t.getSubject().ntriplesString() + " " + t.getPredicate().ntriplesString() + " "
                 + t.getObject().ntriplesString() + " .";
     }
 
-    public static void writeGraph(Graph graph, Path graphFile) throws Exception {
+    static void writeGraph(Graph graph, Path graphFile) throws Exception {
         Stream<CharSequence> stream = graph.stream().map(UserGuideTest::tripleAsString);
         Files.write(graphFile, stream::iterator, StandardCharsets.UTF_8);
     }

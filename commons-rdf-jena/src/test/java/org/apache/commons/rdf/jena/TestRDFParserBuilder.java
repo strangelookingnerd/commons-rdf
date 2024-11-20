@@ -18,7 +18,7 @@
 
 package org.apache.commons.rdf.jena;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -31,29 +31,29 @@ import org.apache.commons.rdf.api.Graph;
 import org.apache.commons.rdf.api.RDFSyntax;
 import org.apache.commons.rdf.experimental.RDFParser.ParseResult;
 import org.apache.commons.rdf.jena.experimental.JenaRDFParser;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class TestRDFParserBuilder {
+class TestRDFParserBuilder {
 
     private Path turtleFile;
 
-    @After
-    public void deletePath() throws IOException {
+    @AfterEach
+    void deletePath() throws IOException {
         if (turtleFile != null) {
             Files.deleteIfExists(turtleFile);
         }
     }
 
-    @Before
-    public void preparePath() throws IOException {
+    @BeforeEach
+    void preparePath() throws IOException {
         turtleFile = Files.createTempFile("commonsrdf", "test.ttl");
         Files.copy(getClass().getResourceAsStream("/D.ttl"), turtleFile, StandardCopyOption.REPLACE_EXISTING);
     }
 
     @Test
-    public void testParseTurtle() throws Exception {
+    void testParseTurtle() throws Exception {
         try (final Graph g = new JenaRDF().createGraph()) {
             final Future<ParseResult> gFuture = new JenaRDFParser().contentType(RDFSyntax.TURTLE).source(turtleFile)
                     .target(g).parse();
